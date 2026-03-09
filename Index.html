@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Matrix Love Rain</title>
+
+<style>
+body{
+    margin:0;
+    overflow:hidden;
+    background:black;
+}
+canvas{
+    display:block;
+}
+</style>
+
+</head>
+
+<body>
+
+<canvas id="matrix"></canvas>
+
+<script>
+
+const canvas = document.getElementById("matrix");
+const ctx = canvas.getContext("2d");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const text = "I LOVE YOU SO MUCH BABY AND I MISS YOU SO MUCH";
+const fontSize = 22;
+const color = "#00ff00";
+const speed = 80;
+
+const columns = canvas.width / fontSize;
+const drops = [];
+
+for(let i = 0; i < columns; i++){
+    drops[i] = 1;
+}
+
+function draw(){
+
+    ctx.fillStyle = "rgba(0,0,0,0.08)";
+    ctx.fillRect(0,0,canvas.width,canvas.height);
+
+    ctx.fillStyle = color;
+    ctx.font = fontSize + "px monospace";
+
+    for(let i = 0; i < drops.length; i++){
+
+        const letter = text[i % text.length]; // FIXED ORDER
+
+        ctx.fillText(letter, i * fontSize, drops[i] * fontSize);
+
+        if(drops[i] * fontSize > canvas.height){
+            drops[i] = 0;
+        }
+
+        drops[i]++;
+    }
+
+}
+
+setInterval(draw, speed);
+
+window.addEventListener("resize", ()=>{
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+});
+
+</script>
+
+</body>
+</html>
